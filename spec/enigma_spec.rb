@@ -16,6 +16,12 @@ RSpec.describe Enigma do
     end
   end
   
+  describe '#encrypt_date' do
+    it 'formats the date for the encryption' do
+      expect(enigma.encrypt_date.length).to eq(6)
+    end
+  end
+  
   # describe '#encrypt' do
   #   it 'will generate a hash and translate a string' do
   #     expect(enigma.encrypt("hello world", "02715", "040895")).to eq({encryption: "keder ohulw", key: "02715", date: "040895"})

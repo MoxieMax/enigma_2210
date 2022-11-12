@@ -10,6 +10,8 @@ class Enigma
     num.to_s.rjust(5, "0")
   end
   
+  
+  
   # def encrypt(message, key = nil, date = nil)
   #   hash = {
   #           encryption: , #encrypted message
