@@ -7,22 +7,23 @@ class Enigma
   end
   
   def random_key
-    num = rand(00000..99999)
-    num.to_s.rjust(5, "0")
+    rand(00000..99999).to_s.rjust(5, "0")
+    # r_key = num.to_s.rjust(5, "0")
   end
   
   def encrypt_date
-    today = Date::today.strftime('%y%m%d')
+    #if there's no given date, use today's date as a "mmddyy" string
+    today = Date::today.strftime('%d%m%y')
   end
+  
   
   
   # def encrypt(message, key = nil, date = encrypt_date)
   #   hash = {
   #           encryption: , #encrypted message
-  #           key: key, #random 5 numbers
+  #           key: random_key, #random 5 numbers
   #           date: date #DDMMYY
   #           }
-  #           #("a".."z").to_a << " " #alphabet plus space
   #   #returns a hash with 3 keys
   # # The encrypt method takes a message String as an argument. It can optionally take a Key and Date as arguments to use for encryption. If the key is not included, generate a random key. If the date is not included, use today’s date.
   # # :encryption => the encrypted String

@@ -6,7 +6,7 @@ RSpec.describe Enigma do
   describe '#initialize' do
     it 'creates new instance with alphabet + " " array' do
       expect(enigma.alphabet).to eq(["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " "])
-      # binding.pry
+      expect(enigma.alphabet.count).to eq(27)
     end
   end
   
@@ -19,6 +19,7 @@ RSpec.describe Enigma do
   describe '#encrypt_date' do
     it 'formats the date for the encryption' do
       expect(enigma.encrypt_date.length).to eq(6)
+      expect(enigma.encrypt_date).to be_a(String)
     end
   end
   

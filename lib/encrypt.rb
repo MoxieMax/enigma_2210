@@ -1,7 +1,7 @@
 # enigma = Enigma.new
 input_file = File.open(ARGV[0], 'r')
-message = input_file.read
-prepare_message = message.downcase
+# message = input_file.read
+# prepare_message = message.downcase
 
 encrypted = File.open(ARGV[1], 'w')
 encrypted.write('encryption!')
