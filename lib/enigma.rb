@@ -1,8 +1,12 @@
 
 class Enigma
   def encrypt(message, key = nil, date = nil)
-    
-  #returns a hash with 3 keys
+    hash = {
+            encryption: , #encrypted message
+            key: , #random 5 numbers
+            date: #DDMMYY
+            }
+    #returns a hash with 3 keys
   # The encrypt method takes a message String as an argument. It can optionally take a Key and Date as arguments to use for encryption. If the key is not included, generate a random key. If the date is not included, use today’s date.
 # :encryption => the encrypted String
 # :key => the key used for encryption as a String
