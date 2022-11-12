@@ -7,7 +7,10 @@ encrypted = File.open(ARGV[1], 'w')
 encrypted.write('encryption!')
 encrypted.close
 
-puts "Created #{ARGV[1]} with the key (key) and the date (date)"
+key = '82648'
+date = '240818'
+
+puts "Created #{ARGV[1]} with the key #{key} and the date #{date}"
 
 #.gsub(/[^\w\s]/, '').chars #not converting characters other than letters and spaces, shouldn't need gsub
 
