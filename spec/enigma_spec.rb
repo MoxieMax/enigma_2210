@@ -2,6 +2,7 @@ require 'spec_helper'
 
 RSpec.describe Enigma do
   let (:enigma) {Enigma.new}
+  let (:message) {'message'}
   let (:key) {'02715'}
   let (:date) {'040895'}
   
@@ -9,6 +10,7 @@ RSpec.describe Enigma do
     it 'creates new instance with alphabet + ' ' array' do
       expect(enigma.alphabet).to eq(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', ' '])
       expect(enigma.alphabet.count).to eq(27)
+      binding.pry
     end
     
     it 'initializes with empty arrays' do
@@ -49,6 +51,12 @@ RSpec.describe Enigma do
     it 'determines the total amount to shift the alpabet for encryption' do
       expect(enigma.shift(key, date)).to eq([3, 27, 73, 20])
       expect(enigma.shift('12345','121122')).to eq([20, 31, 42, 49])
+    end
+  end
+  
+  describe '#encrypt' do
+    it 'generates a hash' do
+      expect(enigma.encrypt(message, key, date)).to eq({:encryption => 'message', :key => '02715', :date => '040895'})
     end
   end
   
