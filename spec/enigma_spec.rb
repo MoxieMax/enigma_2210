@@ -28,6 +28,14 @@ RSpec.describe Enigma do
   describe '#key_split' do
     it 'creates an array and splits it for encryption' do
       expect(enigma.key_split(key)).to eq(["02", "27", "71", "15"])
+      expect(enigma.key_split('12345')).to eq(["12", "23", "34", "45"])
+    end
+  end
+  
+  describe '#shift_split' do
+    it 'splits' do
+      expect(enigma.shift_split(date)).to eq([2, 5, 2, 5])
+      expect(enigma.shift_split('121122')).to eq([8, 8, 8, 4])
     end
   end
   

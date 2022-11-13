@@ -26,6 +26,8 @@ class Enigma
     key_array = [a_key, b_key, c_key, d_key]
   end  
   
+  def shift_split
+  end
   
   # def encrypt(message, key = nil, date = nil)
   #   hash = {
