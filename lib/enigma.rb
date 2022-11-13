@@ -18,7 +18,12 @@ class Enigma
   #make shifts
   
   def key_split(key)
-    
+    array = key.split("")
+    a_key = [array[0], array[1]].join
+    b_key = [array[1], array[2]].join
+    c_key = [array[2], array[3]].join
+    d_key = [array[3], array[4]].join
+    key_array = [a_key, b_key, c_key, d_key]
   end  
   
   
