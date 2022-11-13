@@ -2,6 +2,8 @@ require 'spec_helper'
 
 RSpec.describe Enigma do
   let (:enigma) {Enigma.new}
+  let (:key) {'02715'}
+  let (:date) {'040895'}
   
   describe '#initialize' do
     it 'creates new instance with alphabet + " " array' do
@@ -20,6 +22,12 @@ RSpec.describe Enigma do
     it 'formats the date for the encryption' do
       expect(enigma.encrypt_date.length).to eq(6)
       expect(enigma.encrypt_date).to be_a(String)
+    end
+  end
+  
+  describe '#key_split' do
+    it 'creates an array and splits it for encryption' do
+      expect(enigma.key_split(key)).to eq(["02", "27", "71", "15"])
     end
   end
   

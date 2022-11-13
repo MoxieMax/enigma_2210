@@ -13,9 +13,13 @@ class Enigma
   
   def encrypt_date
     #if there's no given date, use today's date as a "mmddyy" string
-    today = Date::today.strftime('%d%m%y')
+    Date::today.strftime('%d%m%y')
   end
+  #make shifts
   
+  def key_split(key)
+    
+  end  
   
   
   # def encrypt(message, key = nil, date = nil)

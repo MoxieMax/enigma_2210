@@ -6,11 +6,11 @@ message = input_file.read
 prepare_message = message.downcase
 
 encrypted = File.open(ARGV[1], 'w')
-encrypted.write('words are hard!')
+encrypted.write('hello world') #should be the encrypted string
 encrypted.close
 
-# key = '82648'
-# date = '240818'
+# key = '02715' #default for testing
+# date = '040895' #default for testing
 key = enigma.random_key
 date = enigma.encrypt_date
 
