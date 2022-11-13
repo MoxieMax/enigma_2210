@@ -26,7 +26,9 @@ class Enigma
     key_array = [a_key, b_key, c_key, d_key]
   end  
   
-  def shift_split
+  def shift_split(date)
+    square = (date.to_i * date.to_i).to_s.split("")
+    shift_array = square[-4..-1]
   end
   
   # def encrypt(message, key = nil, date = nil)
