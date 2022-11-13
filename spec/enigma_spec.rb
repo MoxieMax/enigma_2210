@@ -1,10 +1,12 @@
 require 'spec_helper'
 
 RSpec.describe Enigma do
-  let (:enigma) {Enigma.new}
-  let (:message) {'message'}
+  
+  let (:message) {'hello world'}
   let (:key) {'02715'}
   let (:date) {'040895'}
+  let (:enigma) {Enigma.new(message, key, date)}
+  let (:enigma_1) {Enigma.new('message')}
   
   describe '#initialize' do
     it 'creates new instance with alphabet + ' ' array' do
@@ -21,7 +23,10 @@ RSpec.describe Enigma do
   
   describe '#random_key' do
     it 'generates a random 5 digit number' do
-      expect(enigma.random_key.to_s.length).to eq(5)
+      # require 'pry';binding.pry
+      expect(enigma.key).to eq('02715')
+      expect(enigma.random_key.length).to eq(5)
+      expect(enigma_1.key.length).to eq(5)
     end
   end
   
@@ -59,7 +64,7 @@ RSpec.describe Enigma do
   
   describe '#encrypt' do
     it 'generates a hash' do
-      expect(enigma.encrypt(message, key, date)).to eq({:encryption => 'message', :key => '02715', :date => '040895'})
+      expect(enigma.encrypt(message, key, date)).to eq({:encryption => 'hello world', :key => '02715', :date => '040895'})
       # binding.pry
       #:encryption is incomplete as the method for encryption isn't written
     end

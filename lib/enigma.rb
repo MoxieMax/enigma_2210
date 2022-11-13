@@ -2,16 +2,22 @@ require 'date'
 
 class Enigma
   attr_reader :alphabet,
-              :key_array,
-              :shift_array,
-              :offset_array
+              :shift,
+              :message,
+              :key,
+              :date
 
-  def initialize
+  def initialize(message, key = random_key, date = encrypt_date)
     @alphabet = ("a".."z").to_a << " "
-    # @key_array = []
-    # @shift_array = []
-    # @offset_array = []
-    @shift = {}
+    @shift = {
+              a: offset(date)[0].to_i + key_split(key)[0].to_i,
+              b: offset(date)[1].to_i + key_split(key)[1].to_i,
+              c: offset(date)[2].to_i + key_split(key)[2].to_i,
+              d: offset(date)[3].to_i + key_split(key)[3].to_i
+            }
+    @message = message
+    @key = key
+    @date = date
   end
   
   def random_key
@@ -55,7 +61,7 @@ class Enigma
     # @offset = a, b, c, d
   end
   
-  def encrypt(message, key = random_key, date = encrypt_date)
+  def encrypt(message, key, date)
     hash = {
             encryption: message,
             key: key,
