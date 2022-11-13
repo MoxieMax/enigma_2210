@@ -10,10 +10,9 @@ RSpec.describe Enigma do
     it 'creates new instance with alphabet + ' ' array' do
       expect(enigma.alphabet).to eq(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', ' '])
       expect(enigma.alphabet.count).to eq(27)
-      binding.pry
     end
     
-    it 'initializes with empty arrays' do
+    xit 'initializes with empty arrays' do
       expect(enigma.key_array).to eq([])
       expect(enigma.shift_array).to eq([])
       expect(enigma.offset_array).to eq([])
@@ -49,14 +48,19 @@ RSpec.describe Enigma do
   
   describe '#shift' do
     it 'determines the total amount to shift the alpabet for encryption' do
-      expect(enigma.shift(key, date)).to eq([3, 27, 73, 20])
-      expect(enigma.shift('12345','121122')).to eq([20, 31, 42, 49])
+      # expect(enigma.shift(key, date)).to eq([3, 27, 73, 20])
+      # expect(enigma.shift('12345','121122')).to eq([20, 31, 42, 49]) #shift as array
+      
+      expect(enigma.shift(key, date)).to eq({:a=>3, :b=>27, :c=>73, :d=>20})
+      expect(enigma.shift('12345','121122')).to eq({:a=>20, :b=>31, :c=>42, :d=>49}) #shift as hash
+      # binding.pry
     end
   end
   
   describe '#encrypt' do
     it 'generates a hash' do
       expect(enigma.encrypt(message, key, date)).to eq({:encryption => 'message', :key => '02715', :date => '040895'})
+      # binding.pry
       #:encryption is incomplete as the method for encryption isn't written
     end
   end

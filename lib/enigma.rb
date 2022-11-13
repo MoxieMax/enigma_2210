@@ -8,9 +8,10 @@ class Enigma
 
   def initialize
     @alphabet = ("a".."z").to_a << " "
-    @key_array = []
-    @shift_array = []
-    @offset_array = []
+    # @key_array = []
+    # @shift_array = []
+    # @offset_array = []
+    @shift = {}
   end
   
   def random_key
@@ -30,20 +31,28 @@ class Enigma
     b_key = [array[1], array[2]].join
     c_key = [array[2], array[3]].join
     d_key = [array[3], array[4]].join
-    @key_array = a_key, b_key, c_key, d_key
+    key_array = a_key, b_key, c_key, d_key
   end  
   
   def offset(date)
     square = (date.to_i * date.to_i).to_s.split("")
-    @shift_array = square[-4..-1]
+    shift_array = square[-4..-1]
   end
   
   def shift(key, date)
-    a = offset(date)[0].to_i + key_split(key)[0].to_i
-    b = offset(date)[1].to_i + key_split(key)[1].to_i
-    c = offset(date)[2].to_i + key_split(key)[2].to_i
-    d = offset(date)[3].to_i + key_split(key)[3].to_i
-    @offset = a, b, c, d
+    shift = {
+                a: offset(date)[0].to_i + key_split(key)[0].to_i,
+                b: offset(date)[1].to_i + key_split(key)[1].to_i,
+                c: offset(date)[2].to_i + key_split(key)[2].to_i,
+                d: offset(date)[3].to_i + key_split(key)[3].to_i
+              }
+              # require 'pry';binding.pry
+    
+    # a = offset(date)[0].to_i + key_split(key)[0].to_i
+    # b = offset(date)[1].to_i + key_split(key)[1].to_i
+    # c = offset(date)[2].to_i + key_split(key)[2].to_i
+    # d = offset(date)[3].to_i + key_split(key)[3].to_i
+    # @offset = a, b, c, d
   end
   
   def encrypt(message, key = random_key, date = encrypt_date)
