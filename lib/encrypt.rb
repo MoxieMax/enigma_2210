@@ -1,14 +1,18 @@
-# enigma = Enigma.new
+require './lib/enigma'
+
+enigma = Enigma.new
 input_file = File.open(ARGV[0], 'r')
-# message = input_file.read
-# prepare_message = message.downcase
+message = input_file.read
+prepare_message = message.downcase
 
 encrypted = File.open(ARGV[1], 'w')
-encrypted.write('encryption!')
+encrypted.write('words are hard!')
 encrypted.close
 
-key = '82648'
-date = '240818'
+# key = '82648'
+# date = '240818'
+key = enigma.random_key
+date = enigma.encrypt_date
 
 puts "Created #{ARGV[1]} with the key #{key} and the date #{date}"
 
