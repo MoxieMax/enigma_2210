@@ -57,6 +57,7 @@ RSpec.describe Enigma do
   describe '#encrypt' do
     it 'generates a hash' do
       expect(enigma.encrypt(message, key, date)).to eq({:encryption => 'message', :key => '02715', :date => '040895'})
+      #:encryption is incomplete as the method for encryption isn't written
     end
   end
   
