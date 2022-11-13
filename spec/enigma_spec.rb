@@ -10,6 +10,12 @@ RSpec.describe Enigma do
       expect(enigma.alphabet).to eq(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', ' '])
       expect(enigma.alphabet.count).to eq(27)
     end
+    
+    it 'initializes with empty arrays' do
+      expect(enigma.key_array).to eq([])
+      expect(enigma.shift_array).to eq([])
+      expect(enigma.offset_array).to eq([])
+    end
   end
   
   describe '#random_key' do
@@ -32,10 +38,17 @@ RSpec.describe Enigma do
     end
   end
   
-  describe '#shift_split' do
-    it 'splits' do
-      expect(enigma.shift_split(date)).to eq(['1', '0', '2', '5'])
-      expect(enigma.shift_split('121122')).to eq(['8', '8', '8', '4'])
+  describe '#offset' do
+    it 'uses the date to determine the alphabet offset' do
+      expect(enigma.offset(date)).to eq(['1', '0', '2', '5'])
+      expect(enigma.offset('121122')).to eq(['8', '8', '8', '4'])
+    end
+  end
+  
+  describe '#shift' do
+    it 'determines the total amount to shift the alpabet for encryption' do
+      expect(enigma.shift(key, date)).to eq([3, 27, 73, 20])
+      expect(enigma.shift('12345','121122')).to eq([20, 31, 42, 49])
     end
   end
   
