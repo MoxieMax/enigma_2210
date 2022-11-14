@@ -62,13 +62,26 @@ RSpec.describe Enigma do
     end
   end
   
+  describe '#cipher' do
+    it 'encodes a string based on the given key' do
+      expect(enigma.cipher('h', 3)).to eq('k')
+      expect(enigma.cipher('e', 27)).to eq('e')
+      expect(enigma.cipher('l', 73)).to eq('d')
+      expect(enigma.cipher('l', 20)).to eq('e')
+      expect(enigma.cipher('o', 3)).to eq('r')
+      expect(enigma.cipher('hello', 3)).to eq('khoor')
+    end
+  end
+  
   describe '#encrypt' do
-    it 'generates a hash' do
+    xit 'generates a hash' do
       expect(enigma.encrypt(message, key, date)).to eq({:encryption => 'hello world', :key => '02715', :date => '040895'})
       # binding.pry
       #:encryption is incomplete as the method for encryption isn't written
     end
   end
+  
+  
   
   # describe '#encrypt' do
   #   it 'will generate a hash and translate a string' do

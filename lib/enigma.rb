@@ -9,12 +9,12 @@ class Enigma
 
   def initialize(message, key = random_key, date = encrypt_date)
     @alphabet = ("a".."z").to_a << " "
-    @shift = {
-              a: offset(date)[0].to_i + key_split(key)[0].to_i,
-              b: offset(date)[1].to_i + key_split(key)[1].to_i,
-              c: offset(date)[2].to_i + key_split(key)[2].to_i,
-              d: offset(date)[3].to_i + key_split(key)[3].to_i
-            }
+    # @shift = {
+    #           a: offset(date)[0].to_i + key_split(key)[0].to_i,
+    #           b: offset(date)[1].to_i + key_split(key)[1].to_i,
+    #           c: offset(date)[2].to_i + key_split(key)[2].to_i,
+    #           d: offset(date)[3].to_i + key_split(key)[3].to_i
+    #         }
     @message = message
     @key = key
     @date = date
@@ -53,12 +53,16 @@ class Enigma
                 d: offset(date)[3].to_i + key_split(key)[3].to_i
               }
               # require 'pry';binding.pry
-    
+          # binding.pry
     # a = offset(date)[0].to_i + key_split(key)[0].to_i
     # b = offset(date)[1].to_i + key_split(key)[1].to_i
     # c = offset(date)[2].to_i + key_split(key)[2].to_i
     # d = offset(date)[3].to_i + key_split(key)[3].to_i
     # @offset = a, b, c, d
+  end
+  
+  def cipher(input, key)
+    
   end
   
   def encrypt(message, key, date)
