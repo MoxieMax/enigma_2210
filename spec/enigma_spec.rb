@@ -23,7 +23,6 @@ RSpec.describe Enigma do
   
   describe '#random_key' do
     it 'generates a random 5 digit number' do
-      # require 'pry';binding.pry
       expect(enigma.key).to eq('02715')
       expect(enigma.random_key.length).to eq(5)
       expect(enigma_1.key.length).to eq(5)
@@ -52,7 +51,7 @@ RSpec.describe Enigma do
   end
   
   describe '#shift' do
-    it 'determines the total amount to shift the alpabet for encryption' do
+    it 'determines the total amount to shift the alphabet for encryption' do
       # expect(enigma.shift(key, date)).to eq([3, 27, 73, 20])
       # expect(enigma.shift('12345','121122')).to eq([20, 31, 42, 49]) #shift as array
       
@@ -73,10 +72,16 @@ RSpec.describe Enigma do
     end
   end
   
+  describe '#encode' do
+    it 'encodes each letter in a string using #cipher' do
+      expect(enigma.encode(message)).to eq('keder')
+    end
+  end
+  
   describe '#encrypt' do
-    xit 'generates a hash' do
+    it 'generates a hash' do
       expect(enigma.encrypt(message, key, date)).to eq({:encryption => 'hello world', :key => '02715', :date => '040895'})
-      # binding.pry
+      binding.pry
       #:encryption is incomplete as the method for encryption isn't written
     end
   end

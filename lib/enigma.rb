@@ -2,19 +2,14 @@ require 'date'
 
 class Enigma
   attr_reader :alphabet,
-              :shift,
+              :shifts,
               :message,
               :key,
               :date
 
   def initialize(message, key = random_key, date = encrypt_date)
     @alphabet = ("a".."z").to_a << " "
-    # @shift = {
-    #           a: offset(date)[0].to_i + key_split(key)[0].to_i,
-    #           b: offset(date)[1].to_i + key_split(key)[1].to_i,
-    #           c: offset(date)[2].to_i + key_split(key)[2].to_i,
-    #           d: offset(date)[3].to_i + key_split(key)[3].to_i
-    #         }
+    @shifts = shift(key, date)
     @message = message
     @key = key
     @date = date
@@ -62,6 +57,12 @@ class Enigma
   end
   
   def cipher(input, key)
+  input.each_char.map { |char| alphabet.include?(char) ?
+    alphabet[(alphabet.index(char)+key) % 27] : c }.join
+  end
+  
+  def encode(input)
+    msg = input.split("")
     
   end
   
