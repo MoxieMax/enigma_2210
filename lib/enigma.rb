@@ -63,7 +63,27 @@ class Enigma
   
   def encode(input)
     msg = input.split("")
-    
+    encoded = []
+    require 'pry'; binding.pry
+    until msg.empty?
+      loop do
+        encoded << cipher(msg.first, shifts[:a])
+        msg.delete_at(0)
+        encoded << cipher(msg.first, shifts[:b])
+        msg.delete_at(0)
+        encoded << cipher(msg.first, shifts[:c])
+        msg.delete_at(0)
+        require 'pry'; binding.pry
+        encoded << cipher(msg.first, shifts[:d])
+        msg.delete_at(0)
+        # require 'pry'; binding.pry
+      end
+      # encoded
+      # require 'pry'; binding.pry
+    end
+    # encoded
+    # require 'pry'; binding.pry
+    # encoded.flatten.join
   end
   
   def encrypt(message, key, date)
