@@ -9,12 +9,13 @@ RSpec.describe Encryptable do
   
   describe '#cipher' do
     it 'encodes a string based on the given key' do
+      expect(enigma.cipher('!', 3)).to eq(nil)
       expect(enigma.cipher('h', 3)).to eq('k')
       expect(enigma.cipher('e', 27)).to eq('e')
       expect(enigma.cipher('l', 73)).to eq('d')
       expect(enigma.cipher('l', 20)).to eq('e')
       expect(enigma.cipher('o', 3)).to eq('r')
-      expect(enigma.cipher('hello', 3)).to eq('khoor')
+      expect(enigma.cipher('hello', 3)).to eq(nil)
     end
   end
   

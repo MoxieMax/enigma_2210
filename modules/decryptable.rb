@@ -25,4 +25,16 @@ module Decryptable
     end
     decoded.join
   end
+  
+  def run_decrypt
+    @message = (File.open(ARGV[0], 'r')).read
+    output_file = File.open(ARGV[1], 'w')
+    output_file.write(decode(message))
+    output_file.close
+    print_decrypt
+  end
+  
+  def print_decrypt
+    puts "Created #{ARGV[1]} with the key #{key} and the date #{date}"
+  end
 end

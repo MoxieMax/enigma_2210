@@ -15,7 +15,7 @@ class Enigma
               :key,
               :date
               
-  def initialize(message = (File.open(ARGV[0], 'r')).read.downcase, key = random_key, date = encrypt_date)
+  def initialize(message, key = random_key, date = encrypt_date)
     @alphabet = ("a".."z").to_a << " "
     @shifts = shift(key, date)
     @message = message
@@ -60,19 +60,5 @@ class Enigma
             key: key,
             date: date
             }
-  end
-  
-  def run_decrypt
-    input_file = File.open(ARGV[0], 'r')
-    @message = input_file.read.downcase
-    decrypt(message, key, date)
-    output_file = File.open(ARGV[1], 'w')
-    output_file.write(decode(message))
-    output_file.close
-    print_decrypt
-  end
-  
-  def print_decrypt
-    puts "Created #{ARGV[1]} with the key #{key} and the date #{date}"
   end
 end
