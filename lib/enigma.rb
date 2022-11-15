@@ -18,7 +18,7 @@ class Enigma
   def initialize(message, key = random_key, date = encrypt_date)
     @alphabet = ("a".."z").to_a << " "
     @shifts = shift(key, date)
-    @message = message #.gsub(/[^\w\s]/)
+    @message = message
     @key = key
     @date = date
   end
