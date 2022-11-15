@@ -6,7 +6,6 @@ class Enigma
               :message,
               :key,
               :date
-
   def initialize(message, key = random_key, date = encrypt_date)
     @alphabet = ("a".."z").to_a << " "
     @shifts = shift(key, date)
