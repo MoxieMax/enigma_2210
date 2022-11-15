@@ -24,7 +24,6 @@ class Enigma
     #if there's no given date, use today's date as a "mmddyy" string
     Date::today.strftime('%d%m%y')
   end
-  #make shifts
   
   def key_split(key)
     array = key.split("")
@@ -47,48 +46,38 @@ class Enigma
                 c: offset(date)[2].to_i + key_split(key)[2].to_i,
                 d: offset(date)[3].to_i + key_split(key)[3].to_i
               }
-              # require 'pry';binding.pry
-          # binding.pry
-    # a = offset(date)[0].to_i + key_split(key)[0].to_i
-    # b = offset(date)[1].to_i + key_split(key)[1].to_i
-    # c = offset(date)[2].to_i + key_split(key)[2].to_i
-    # d = offset(date)[3].to_i + key_split(key)[3].to_i
-    # @offset = a, b, c, d
   end
   
   def cipher(input, key)
-  input.each_char.map { |char| alphabet.include?(char) ?
-    alphabet[(alphabet.index(char)+key) % 27] : c }.join
+    input.each_char.map { |char| alphabet.include?(char) ?
+      alphabet[(alphabet.index(char)+key) % 27] : c }.join
   end
   
   def encode(input)
     msg = input.split("")
     encoded = []
-    require 'pry'; binding.pry
     until msg.empty?
       loop do
         encoded << cipher(msg.first, shifts[:a])
-        msg.delete_at(0)
+        msg.shift
+        break if msg.empty?
         encoded << cipher(msg.first, shifts[:b])
-        msg.delete_at(0)
+        msg.shift
+        break if msg.empty?
         encoded << cipher(msg.first, shifts[:c])
-        msg.delete_at(0)
-        require 'pry'; binding.pry
+        msg.shift
+        break if msg.empty?
         encoded << cipher(msg.first, shifts[:d])
-        msg.delete_at(0)
-        # require 'pry'; binding.pry
+        msg.shift
+        break if msg.empty?
       end
-      # encoded
-      # require 'pry'; binding.pry
     end
-    # encoded
-    # require 'pry'; binding.pry
-    # encoded.flatten.join
+    encoded.join
   end
   
   def encrypt(message, key, date)
     hash = {
-            encryption: message,
+            encryption: encode(message),
             key: key,
             date: date
             }
