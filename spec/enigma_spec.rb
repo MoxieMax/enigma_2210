@@ -104,6 +104,8 @@ RSpec.describe Enigma do
   describe '#decrypt' do
     it 'will generate a hash and translate a string' do
       expect(enigma.decrypt('keder ohulw', '02715', '040895')).to eq({decryption: 'hello world', key: '02715', date: '040895'})
+      
+      expect(enigma_1.decrypt('agejhbpmknx', key_1, date_1).to eq({decryption: 'hello world', key: '02715', date: '040895'})
     end
   end
 end
