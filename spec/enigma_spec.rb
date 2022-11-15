@@ -1,28 +1,30 @@
 require 'spec_helper'
 
 RSpec.describe Enigma do
-  let (:enigma) {Enigma.new}
-  let (:message) {'message'}
-  let (:key) {'02715'}
-  let (:date) {'040895'}
+  
+  let (:enigma) {Enigma.new('hello world', '02715', '040895')}
+  let (:message) {enigma.message}
+  let (:key) {enigma.key}
+  let (:date) {enigma.date}
+  let (:enigma_1) {Enigma.new('message', key_1)}
+  let (:key_1) {'12121'}
+  let (:date_1) {'141122'}
   
   describe '#initialize' do
     it 'creates new instance with alphabet + ' ' array' do
       expect(enigma.alphabet).to eq(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', ' '])
       expect(enigma.alphabet.count).to eq(27)
-      binding.pry
-    end
-    
-    it 'initializes with empty arrays' do
-      expect(enigma.key_array).to eq([])
-      expect(enigma.shift_array).to eq([])
-      expect(enigma.offset_array).to eq([])
+      expect(enigma.shifts).to be_a(Hash)
+      expect(enigma.shifts.keys).to eq([:a, :b, :c, :d])
+      expect(enigma.shifts.values[0]).to be_an(Integer)
     end
   end
   
   describe '#random_key' do
     it 'generates a random 5 digit number' do
-      expect(enigma.random_key.to_s.length).to eq(5)
+      expect(enigma.key).to eq('02715')
+      expect(enigma.random_key.length).to eq(5)
+      expect(enigma_1.key.length).to eq(5)
     end
   end
   
@@ -48,26 +50,42 @@ RSpec.describe Enigma do
   end
   
   describe '#shift' do
-    it 'determines the total amount to shift the alpabet for encryption' do
-      expect(enigma.shift(key, date)).to eq([3, 27, 73, 20])
-      expect(enigma.shift('12345','121122')).to eq([20, 31, 42, 49])
+    it 'determines the total amount to shift the alphabet for encryption' do
+      expect(enigma.shift(key, date)).to eq({:a=>3, :b=>27, :c=>73, :d=>20})
+      expect(enigma.shift('12345','121122')).to eq({:a=>20, :b=>31, :c=>42, :d=>49})
+    end
+  end
+  
+  describe '#cipher' do
+    it 'encodes a string based on the given key' do
+      expect(enigma.cipher('h', 3)).to eq('k')
+      expect(enigma.cipher('e', 27)).to eq('e')
+      expect(enigma.cipher('l', 73)).to eq('d')
+      expect(enigma.cipher('l', 20)).to eq('e')
+      expect(enigma.cipher('o', 3)).to eq('r')
+      expect(enigma.cipher('hello', 3)).to eq('khoor')
+    end
+  end
+  
+  describe '#encode' do
+    it 'encodes each letter in a string using #cipher' do
+      expect(enigma.encode(message)).to eq('keder ohulw')
     end
   end
   
   describe '#encrypt' do
     it 'generates a hash' do
-      expect(enigma.encrypt(message, key, date)).to eq({:encryption => 'message', :key => '02715', :date => '040895'})
-      #:encryption is incomplete as the method for encryption isn't written
+      expect(enigma.encrypt(message, key, date)).to eq({:encryption => 'keder ohulw', :key => '02715', :date => '040895'})
+      # binding.pry
+      expect(enigma_1.encrypt(enigma.message, key_1, date_1)).to eq({:encryption => 'agejhbpmknx', :key => '12121', :date => '141122'})
+      
+      # enigma2 = Enigma.new('message')
+      # expect(enigma2.encrypt(enigma2.message, enigma2.key, enigma2.date)).to eq({:encryption => 'random', :key => 'random', :date => 'today'})
+      #this isn't meant to be fully functional, it has random generation for the number and uses todays date
     end
   end
-  
-  # describe '#encrypt' do
-  #   it 'will generate a hash and translate a string' do
-  #     expect(enigma.encrypt('hello world', '02715', '040895')).to eq({encryption: 'keder ohulw', key: '02715', date: '040895'})
-  #   end
-  # end
-  
-  # describe '#decrypt' do
+
+# describe '#decrypt' do
   #   it 'will generate a hash and translate a string' do
   #     expect(enigma.encrypt('keder ohulw', '02715', '040895')).to eq({encryption: 'hello world', key: '02715', date: '040895'})
   #   end
