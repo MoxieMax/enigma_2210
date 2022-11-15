@@ -110,11 +110,11 @@ class Enigma
     decoded.join
   end
   
-  # def decrypt(message, key, date)
-  #   hash = {
-  #           decryption: decode(message),
-  #           key: key,
-  #           date: date
-  #           }
-  # end
+  def decrypt(message, key, date)
+    hash = {
+            decryption: decode(message),
+            key: key,
+            date: date
+            }
+  end
 end
