@@ -8,7 +8,7 @@ require './lib/enigma'
 input_file = File.open(ARGV[0], 'r')
 file_txt = input_file.read
 message = file_txt.downcase
-enigma = Enigma.new(message, '36940')
+enigma = Enigma.new(message, '36380')
 # prepare_message = message.downcase
 
 decrypted = File.open(ARGV[1], 'w')
