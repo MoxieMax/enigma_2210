@@ -1,7 +1,9 @@
 module Encryptable
   def cipher(input, key)
+    if alphabet.include?(input)
     input.each_char.map { |char| alphabet.include?(char) ?
       alphabet[(alphabet.index(char)+key) % 27] : c }.join
+    end
       # require 'pry'; binding.pry
   end
 
