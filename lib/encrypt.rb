@@ -1,7 +1,7 @@
 require './lib/enigma'
 require 'date'
 
-enigma = Enigma.new((File.open(ARGV[0], 'r')))
+enigma = Enigma.new
 
 enigma.run_encrypt
 
