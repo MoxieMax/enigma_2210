@@ -75,7 +75,7 @@ class Enigma
     encoded.join
   end
   
-  def encrypt(message, key, date)
+  def encrypt(message, key, date = encrypt_date)
     hash = {
             encryption: encode(message),
             key: key,
@@ -110,7 +110,7 @@ class Enigma
     decoded.join
   end
   
-  def decrypt(message, key, date)
+  def decrypt(message, key, date = encrypt_date)
     hash = {
             decryption: decode(message),
             key: key,
