@@ -12,7 +12,6 @@ RSpec.describe Enigma do
   
   describe '#initialize' do
     it 'creates new instance with alphabet + ' ' array' do
-      binding.pry
       expect(enigma.alphabet).to eq(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', ' '])
       expect(enigma.alphabet.count).to eq(27)
       expect(enigma.shifts).to be_a(Hash)

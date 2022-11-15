@@ -1,8 +1,14 @@
 require 'date'
-# require_relative 'generators'
+require './modules/generatable'
+require './modules/encryptable'
+require './modules/decryptable'
 
 class Enigma
-  # include Generators
+  
+  include Generatable
+  include Encryptable
+  include Decryptable
+  
   attr_reader :alphabet,
               :shifts,
               :message,
@@ -14,14 +20,6 @@ class Enigma
     @message = message
     @key = key
     @date = date
-  end
-  
-  def random_key
-    rand(00000..99999).to_s.rjust(5, "0")
-  end
-  
-  def encrypt_date
-    Date::today.strftime('%d%m%y')
   end
   
   def key_split(key)
@@ -47,33 +45,33 @@ class Enigma
               }
   end
   
-  def cipher(input, key)
-    input.each_char.map { |char| alphabet.include?(char) ?
-      alphabet[(alphabet.index(char)+key) % 27] : c }.join
-  end
-  
-  def encode(input)
-    msg = input.split("")
-    encoded = []
-    until msg.empty?
-      loop do
-        encoded << cipher(msg.first, shifts[:a])
-        msg.shift
-        break if msg.empty?
-        encoded << cipher(msg.first, shifts[:b])
-        msg.shift
-        break if msg.empty?
-        encoded << cipher(msg.first, shifts[:c])
-        msg.shift
-        break if msg.empty?
-        encoded << cipher(msg.first, shifts[:d])
-        msg.shift
-        break if msg.empty?
-      end
-    end
-    encoded.join
-  end
-  
+  # def cipher(input, key)
+  #   input.each_char.map { |char| alphabet.include?(char) ?
+  #     alphabet[(alphabet.index(char)+key) % 27] : c }.join
+  # end
+  # 
+  # def encode(input)
+  #   msg = input.split("")
+  #   encoded = []
+  #   until msg.empty?
+  #     loop do
+  #       encoded << cipher(msg.first, shifts[:a])
+  #       msg.shift
+  #       break if msg.empty?
+  #       encoded << cipher(msg.first, shifts[:b])
+  #       msg.shift
+  #       break if msg.empty?
+  #       encoded << cipher(msg.first, shifts[:c])
+  #       msg.shift
+  #       break if msg.empty?
+  #       encoded << cipher(msg.first, shifts[:d])
+  #       msg.shift
+  #       break if msg.empty?
+  #     end
+  #   end
+  #   encoded.join
+  # end
+  # 
   def encrypt(message, key, date = encrypt_date)
     hash = {
             encryption: encode(message),
@@ -82,32 +80,32 @@ class Enigma
             }
   end
   
-  def decipher(input, key)
-    input.each_char.map { |char| alphabet.include?(char) ?
-      alphabet[(alphabet.index(char)-key) % 27] : c }.join
-  end
-  
-  def decode(input)
-    msg = input.split("")
-    decoded = []
-    until msg.empty?
-      loop do
-        decoded << decipher(msg.first, shifts[:a])
-        msg.shift
-        break if msg.empty?
-        decoded << decipher(msg.first, shifts[:b])
-        msg.shift
-        break if msg.empty?
-        decoded << decipher(msg.first, shifts[:c])
-        msg.shift
-        break if msg.empty?
-        decoded << decipher(msg.first, shifts[:d])
-        msg.shift
-        break if msg.empty?
-      end
-    end
-    decoded.join
-  end
+  # def decipher(input, key)
+  #   input.each_char.map { |char| alphabet.include?(char) ?
+  #     alphabet[(alphabet.index(char)-key) % 27] : c }.join
+  # end
+  # 
+  # def decode(input)
+  #   msg = input.split("")
+  #   decoded = []
+  #   until msg.empty?
+  #     loop do
+  #       decoded << decipher(msg.first, shifts[:a])
+  #       msg.shift
+  #       break if msg.empty?
+  #       decoded << decipher(msg.first, shifts[:b])
+  #       msg.shift
+  #       break if msg.empty?
+  #       decoded << decipher(msg.first, shifts[:c])
+  #       msg.shift
+  #       break if msg.empty?
+  #       decoded << decipher(msg.first, shifts[:d])
+  #       msg.shift
+  #       break if msg.empty?
+  #     end
+  #   end
+  #   decoded.join
+  # end
   
   def decrypt(message, key, date = encrypt_date)
     hash = {
