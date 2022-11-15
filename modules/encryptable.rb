@@ -5,7 +5,7 @@ module Encryptable
   end
 
   def encode(input)
-    msg = input.split("")
+    msg = input.split('')
     encoded = []
     until msg.empty?
       loop do
@@ -24,13 +24,5 @@ module Encryptable
       end
     end
     encoded.join
-  end
-
-  def encrypt(message, key, date = encrypt_date)
-    hash = {
-            encryption: encode(message),
-            key: key,
-            date: date
-            }
   end
 end

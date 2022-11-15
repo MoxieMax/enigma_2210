@@ -20,21 +20,6 @@ RSpec.describe Enigma do
     end
   end
   
-  # describe '#random_key' do
-  #   it 'generates a random 5 digit number' do
-  #     expect(enigma.key).to eq('02715')
-  #     expect(enigma.random_key.length).to eq(5)
-  #     expect(enigma_1.key.length).to eq(5)
-  #   end
-  # end
-  
-  # describe '#encrypt_date' do
-  #   it 'formats the date for the encryption' do
-  #     expect(enigma.encrypt_date.length).to eq(6)
-  #     expect(enigma.encrypt_date).to be_a(String)
-  #   end
-  # end
-  
   describe '#key_split' do
     it 'creates an array and splits it for encryption' do
       expect(enigma.key_split(key)).to eq(['02', '27', '71', '15'])
@@ -56,46 +41,12 @@ RSpec.describe Enigma do
     end
   end
   
-  # describe '#cipher' do
-  #   it 'encodes a string based on the given key' do
-  #     expect(enigma.cipher('h', 3)).to eq('k')
-  #     expect(enigma.cipher('e', 27)).to eq('e')
-  #     expect(enigma.cipher('l', 73)).to eq('d')
-  #     expect(enigma.cipher('l', 20)).to eq('e')
-  #     expect(enigma.cipher('o', 3)).to eq('r')
-  #     expect(enigma.cipher('hello', 3)).to eq('khoor')
-  #   end
-  # end
-  # 
-  # describe '#encode' do
-  #   it 'encodes each letter in a string using #cipher' do
-  #     expect(enigma.encode(message)).to eq('keder ohulw')
-  #   end
-  # end
-  
   describe '#encrypt' do
     it 'generates a hash' do
       expect(enigma.encrypt(message, key, date)).to eq({:encryption => 'keder ohulw', :key => '02715', :date => '040895'})
       expect(enigma_1.encrypt(enigma.message, key_1, date_1)).to eq({:encryption => 'agejhbpmknx', :key => '12121', :date => '141122'})
     end
   end
-  
-  # describe '#decipher' do
-  #   it 'decodes a string based on the given key' do
-  #     expect(enigma.decipher('k', 3)).to eq('h')
-  #     expect(enigma.decipher('e', 27)).to eq('e')
-  #     expect(enigma.decipher('d', 73)).to eq('l')
-  #     expect(enigma.decipher('e', 20)).to eq('l')
-  #     expect(enigma.decipher('r', 3)).to eq('o')
-  #     expect(enigma.decipher('khoor', 3)).to eq('hello')
-  #   end
-  # end
-  # 
-  # describe '#decode' do
-  #   it 'decodes each letter in a string using #decipher' do
-  #     expect(enigma.decode('keder ohulw')).to eq('hello world')
-  #   end
-  # end
 
   describe '#decrypt' do
     it 'will generate a hash and translate a string' do

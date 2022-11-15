@@ -4,7 +4,6 @@ RSpec.describe Generatable do
   
   let (:enigma) {Enigma.new(message)}
   let (:message) {'hello world'}
-  let (:key) {enigma.random_key}
   
   describe '#random_key' do
     it 'generates a random 5 digit number' do

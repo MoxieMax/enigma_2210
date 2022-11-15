@@ -14,6 +14,7 @@ class Enigma
               :message,
               :key,
               :date
+              
   def initialize(message, key = random_key, date = encrypt_date)
     @alphabet = ("a".."z").to_a << " "
     @shifts = shift(key, date)
@@ -38,40 +39,13 @@ class Enigma
   
   def shift(key, date)
     shift = {
-                a: offset(date)[0].to_i + key_split(key)[0].to_i,
-                b: offset(date)[1].to_i + key_split(key)[1].to_i,
-                c: offset(date)[2].to_i + key_split(key)[2].to_i,
-                d: offset(date)[3].to_i + key_split(key)[3].to_i
+              a: offset(date)[0].to_i + key_split(key)[0].to_i,
+              b: offset(date)[1].to_i + key_split(key)[1].to_i,
+              c: offset(date)[2].to_i + key_split(key)[2].to_i,
+              d: offset(date)[3].to_i + key_split(key)[3].to_i
               }
   end
   
-  # def cipher(input, key)
-  #   input.each_char.map { |char| alphabet.include?(char) ?
-  #     alphabet[(alphabet.index(char)+key) % 27] : c }.join
-  # end
-  # 
-  # def encode(input)
-  #   msg = input.split("")
-  #   encoded = []
-  #   until msg.empty?
-  #     loop do
-  #       encoded << cipher(msg.first, shifts[:a])
-  #       msg.shift
-  #       break if msg.empty?
-  #       encoded << cipher(msg.first, shifts[:b])
-  #       msg.shift
-  #       break if msg.empty?
-  #       encoded << cipher(msg.first, shifts[:c])
-  #       msg.shift
-  #       break if msg.empty?
-  #       encoded << cipher(msg.first, shifts[:d])
-  #       msg.shift
-  #       break if msg.empty?
-  #     end
-  #   end
-  #   encoded.join
-  # end
-  # 
   def encrypt(message, key, date = encrypt_date)
     hash = {
             encryption: encode(message),
@@ -79,33 +53,6 @@ class Enigma
             date: date
             }
   end
-  
-  # def decipher(input, key)
-  #   input.each_char.map { |char| alphabet.include?(char) ?
-  #     alphabet[(alphabet.index(char)-key) % 27] : c }.join
-  # end
-  # 
-  # def decode(input)
-  #   msg = input.split("")
-  #   decoded = []
-  #   until msg.empty?
-  #     loop do
-  #       decoded << decipher(msg.first, shifts[:a])
-  #       msg.shift
-  #       break if msg.empty?
-  #       decoded << decipher(msg.first, shifts[:b])
-  #       msg.shift
-  #       break if msg.empty?
-  #       decoded << decipher(msg.first, shifts[:c])
-  #       msg.shift
-  #       break if msg.empty?
-  #       decoded << decipher(msg.first, shifts[:d])
-  #       msg.shift
-  #       break if msg.empty?
-  #     end
-  #   end
-  #   decoded.join
-  # end
   
   def decrypt(message, key, date = encrypt_date)
     hash = {
