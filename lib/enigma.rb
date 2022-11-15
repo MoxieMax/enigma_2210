@@ -1,28 +1,26 @@
 require 'date'
+require './modules/generatable'
+require './modules/encryptable'
+require './modules/decryptable'
 
 class Enigma
+  
+  include Generatable
+  include Encryptable
+  include Decryptable
+  
   attr_reader :alphabet,
               :shifts,
               :message,
               :key,
               :date
-
-  def initialize(message, key = random_key, date = encrypt_date)
+              
+  def initialize(message = (File.open(ARGV[0], 'r')).read.downcase, key = random_key, date = encrypt_date)
     @alphabet = ("a".."z").to_a << " "
     @shifts = shift(key, date)
     @message = message
     @key = key
     @date = date
-  end
-  
-  def random_key
-    rand(00000..99999).to_s.rjust(5, "0")
-    
-  end
-  
-  def encrypt_date
-    #if there's no given date, use today's date as a "mmddyy" string
-    Date::today.strftime('%d%m%y')
   end
   
   def key_split(key)
@@ -41,53 +39,40 @@ class Enigma
   
   def shift(key, date)
     shift = {
-                a: offset(date)[0].to_i + key_split(key)[0].to_i,
-                b: offset(date)[1].to_i + key_split(key)[1].to_i,
-                c: offset(date)[2].to_i + key_split(key)[2].to_i,
-                d: offset(date)[3].to_i + key_split(key)[3].to_i
+              a: offset(date)[0].to_i + key_split(key)[0].to_i,
+              b: offset(date)[1].to_i + key_split(key)[1].to_i,
+              c: offset(date)[2].to_i + key_split(key)[2].to_i,
+              d: offset(date)[3].to_i + key_split(key)[3].to_i
               }
   end
   
-  def cipher(input, key)
-    input.each_char.map { |char| alphabet.include?(char) ?
-      alphabet[(alphabet.index(char)+key) % 27] : c }.join
-  end
-  
-  def encode(input)
-    msg = input.split("")
-    encoded = []
-    until msg.empty?
-      loop do
-        encoded << cipher(msg.first, shifts[:a])
-        msg.shift
-        break if msg.empty?
-        encoded << cipher(msg.first, shifts[:b])
-        msg.shift
-        break if msg.empty?
-        encoded << cipher(msg.first, shifts[:c])
-        msg.shift
-        break if msg.empty?
-        encoded << cipher(msg.first, shifts[:d])
-        msg.shift
-        break if msg.empty?
-      end
-    end
-    encoded.join
-  end
-  
-  def encrypt(message, key, date)
+  def encrypt(message, key, date = encrypt_date)
     hash = {
             encryption: encode(message),
             key: key,
             date: date
             }
   end
-
-
-#   def decrypt(message, key = nil, date = nil)
-#   #The decrypt method takes a ciphertext String and the Key used for encryption as arguments. The decrypt method can optionally take a date as the third argument. If no date is given, this method should use today’s date for decryption.
-# # :decryption => the decrypted String
-# # :key => the key used for decryption as a String
-# # :date => the date used for decryption as a String in the form DDMMYY
-#   end
+  
+  def decrypt(message, key, date = encrypt_date)
+    hash = {
+            decryption: decode(message),
+            key: key,
+            date: date
+            }
+  end
+  
+  def run_decrypt
+    input_file = File.open(ARGV[0], 'r')
+    @message = input_file.read.downcase
+    decrypt(message, key, date)
+    output_file = File.open(ARGV[1], 'w')
+    output_file.write(decode(message))
+    output_file.close
+    print_decrypt
+  end
+  
+  def print_decrypt
+    puts "Created #{ARGV[1]} with the key #{key} and the date #{date}"
+  end
 end
