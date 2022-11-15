@@ -76,18 +76,34 @@ RSpec.describe Enigma do
   describe '#encrypt' do
     it 'generates a hash' do
       expect(enigma.encrypt(message, key, date)).to eq({:encryption => 'keder ohulw', :key => '02715', :date => '040895'})
-      # binding.pry
       expect(enigma_1.encrypt(enigma.message, key_1, date_1)).to eq({:encryption => 'agejhbpmknx', :key => '12121', :date => '141122'})
       
       # enigma2 = Enigma.new('message')
       # expect(enigma2.encrypt(enigma2.message, enigma2.key, enigma2.date)).to eq({:encryption => 'random', :key => 'random', :date => 'today'})
-      #this isn't meant to be fully functional, it has random generation for the number and uses todays date
+      #this isn't meant to be fully functional, it shows random generation for the number and uses todays date when the key and date are left blank
+    end
+  end
+  
+  describe '#decipher' do
+    it 'decodes a string based on the given key' do
+      expect(enigma.decipher('k', 3)).to eq('h')
+      expect(enigma.decipher('e', 27)).to eq('e')
+      expect(enigma.decipher('d', 73)).to eq('l')
+      expect(enigma.decipher('e', 20)).to eq('l')
+      expect(enigma.decipher('r', 3)).to eq('o')
+      expect(enigma.decipher('khoor', 3)).to eq('hello')
+    end
+  end
+  
+  describe '#decode' do
+    xit 'decodes each letter in a string using #cipher' do
+      expect(enigma.decode(message)).to eq('hello world')
     end
   end
 
-# describe '#decrypt' do
-  #   it 'will generate a hash and translate a string' do
-  #     expect(enigma.encrypt('keder ohulw', '02715', '040895')).to eq({encryption: 'hello world', key: '02715', date: '040895'})
-  #   end
-  # end
+  describe '#decrypt' do
+    xit 'will generate a hash and translate a string' do
+      expect(enigma.decrypt('keder ohulw', '02715', '040895')).to eq({decryption: 'hello world', key: '02715', date: '040895'})
+    end
+  end
 end

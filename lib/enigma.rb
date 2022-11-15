@@ -82,12 +82,21 @@ class Enigma
             date: date
             }
   end
-
-
-#   def decrypt(message, key = nil, date = nil)
-#   #The decrypt method takes a ciphertext String and the Key used for encryption as arguments. The decrypt method can optionally take a date as the third argument. If no date is given, this method should use today’s date for decryption.
-# # :decryption => the decrypted String
-# # :key => the key used for decryption as a String
-# # :date => the date used for decryption as a String in the form DDMMYY
-#   end
+  
+  def decipher(input, key)
+    input.each_char.map { |char| alphabet.include?(char) ?
+      alphabet[(alphabet.index(char)-key) % 27] : c }.join
+  end
+  
+  def decode(input)
+    
+  end
+  
+  # def decrypt(message, key, date)
+  #   hash = {
+  #           decryption: decode(message),
+  #           key: key,
+  #           date: date
+  #           }
+  # end
 end
