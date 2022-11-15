@@ -2,6 +2,7 @@ module Encryptable
   def cipher(input, key)
     input.each_char.map { |char| alphabet.include?(char) ?
       alphabet[(alphabet.index(char)+key) % 27] : c }.join
+      # require 'pry'; binding.pry
   end
 
   def encode(input)
@@ -38,5 +39,4 @@ module Encryptable
   def print_encrypt
     puts "Created #{ARGV[1]} with the key #{key} and the date #{date}"
   end
-  
 end
