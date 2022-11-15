@@ -96,8 +96,8 @@ RSpec.describe Enigma do
   end
   
   describe '#decode' do
-    xit 'decodes each letter in a string using #cipher' do
-      expect(enigma.decode(message)).to eq('hello world')
+    it 'decodes each letter in a string using #decipher' do
+      expect(enigma.decode('keder ohulw')).to eq('hello world')
     end
   end
 
